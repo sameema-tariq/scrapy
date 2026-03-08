@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canopy Cloud — {{ company_name }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    /* Canopy Brand Colors — matched from website */
+    --ink: #0a2e14;
+    --paper: #f4f6f2;
+    --canopy: #0a3d1e;
+    --canopy-light: #e4ede7;
+    --canopy-mid: #1a6b3c;
+    --canopy-bright: #2d8a4e;
+    --accent: #c8e6a0;
+    --accent-light: #f0f7ea;
+    --muted: #5a6b5f;
+    --rule: #c8d5cb;
+    --red: #b83c2a;
+    --red-light: #fdf0ee;
+    --white: #ffffff;
+    --header-bg: #0a3d1e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page { size: A4; margin: 0; }
+
+  html {
+    width: 210mm;
+    height: 297mm;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    width: 210mm;
+    height: 297mm;
+    overflow: hidden;
+    margin: 0;
+    font-size: 9.5px;
+    line-height: 1.4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--header-bg);
+    color: white;
+    padding: 10px 24px 9px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  /* Canopy logo */
+  .canopy-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px;
+  }
+  .canopy-logo-icon {
+    height: 32px;
+    width: auto;
+    flex-shrink: 0;
+    /* Invert to white for dark header background */
+    filter: brightness(0) invert(1);
+  }
+  .report-label { font-size: 7.5px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.5); font-weight: 400; }
+  .report-date { font-size: 7.5px; color: rgba(255,255,255,0.45); letter-spacing: 0.5px; margin-bottom: 2px; }
+  .confidential-badge { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); font-size: 7px; text-transform: uppercase; letter-spacing: 1.5px; padding: 1px 6px; border-radius: 2px; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 8px 24px 7px;
+    border-bottom: 1px solid var(--rule);
+    background: white;
+    flex-shrink: 0;
+  }
+  .company-eyebrow { font-size: 7px; text-transform: uppercase; letter-spacing: 2px; color: var(--canopy-mid); font-weight: 600; margin-bottom: 2px; }
+  .company-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; line-height: 1; letter-spacing: -0.8px; color: var(--ink); margin-bottom: 4px; }
+  .company-meta { font-size: 8.5px; color: var(--muted); display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .company-meta .dot { width: 3px; height: 3px; background: var(--rule); border-radius: 50%; display: inline-block; }
+
+  /* ── DESC STRIP ── */
+  .desc-strip {
+    padding: 5px 24px;
+    background: var(--canopy-light);
+    border-bottom: 1px solid #b8d0bf;
+    font-size: 8.5px;
+    color: #1a3d24;
+    font-style: italic;
+    flex-shrink: 0;
+    line-height: 1.35;
+  }
+
+  /* ── MAIN GRID ── */
+  .main {
+    padding: 7px 24px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    overflow: hidden;
+    align-content: start;
+  }
+  .card { background: white; border: 1px solid var(--rule); border-radius: 5px; overflow: hidden; }
+  .card-full { grid-column: 1 / -1; }
+  .card-header { display: flex; align-items: center; justify-content: space-between; padding: 5px 10px; border-bottom: 1px solid var(--rule); background: #f5f8f5; }
+  .card-title { font-family: 'Syne', sans-serif; font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--ink); }
+  .card-badge { font-size: 7px; padding: 1px 6px; border-radius: 20px; font-weight: 500; }
+  .badge-green { background: var(--canopy-light); color: var(--canopy); border: 1px solid #a8ccb4; }
+  .badge-amber { background: #f0f7ea; color: #2a6b3a; border: 1px solid #a8ccb4; }
+  .card-body { padding: 8px 10px; }
+
+  /* ── SPEND ── */
+  .spend-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--rule); border-radius: 4px; overflow: hidden; }
+  .spend-item { background: white; padding: 7px 10px; text-align: center; }
+  .spend-item.highlight { background: var(--canopy); }
+  .spend-label { font-size: 7px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 2px; }
+  .spend-item.highlight .spend-label { color: rgba(255,255,255,0.6); }
+  .spend-value { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; color: var(--ink); letter-spacing: -0.5px; line-height: 1; }
+  .spend-item.highlight .spend-value { color: white; }
+  .spend-sub { font-size: 7px; color: var(--muted); margin-top: 2px; }
+  .spend-item.highlight .spend-sub { color: rgba(255,255,255,0.5); }
+  .gpu-note { margin-top: 5px; font-size: 7.5px; color: var(--muted); padding: 4px 8px; background: #f5f8f5; border-left: 2px solid var(--canopy-bright); border-radius: 0 3px 3px 0; line-height: 1.3; }
+
+  /* ── OPP ── */
+  .opp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .opp-item { padding: 7px 9px; border-radius: 4px; border: 1px solid var(--rule); }
+  .opp-item.savings { background: var(--canopy-light); border-color: #a8ccb4; }
+  .opp-item.growth { background: var(--red-light); border-color: #f5c6c0; }
+  .opp-label { font-size: 7px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 2px; }
+  .opp-item.savings .opp-label { color: var(--canopy); }
+  .opp-item.growth .opp-label { color: var(--red); }
+  .opp-value { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; line-height: 1; margin-bottom: 2px; }
+  .opp-item.savings .opp-value { color: var(--canopy); }
+  .opp-item.growth .opp-value { color: var(--red); }
+  .opp-desc { font-size: 7.5px; color: var(--muted); line-height: 1.3; }
+
+  /* ── BREAKDOWN TABLE ── */
+  .breakdown-table { width: 100%; border-collapse: collapse; font-size: 8px; }
+  .breakdown-table thead tr { background: #f0f5f1; }
+  .breakdown-table th { padding: 4px 8px; text-align: left; font-size: 7px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--rule); }
+  .breakdown-table td { padding: 3.5px 8px; border-bottom: 1px solid #e4ede7; vertical-align: top; }
+  .breakdown-table tr:last-child td { border-bottom: none; }
+  .step-num { font-weight: 700; color: var(--canopy-mid); font-family: 'Syne', sans-serif; }
+  .step-val { font-weight: 600; font-family: 'Syne', sans-serif; color: var(--ink); white-space: nowrap; }
+  .step-detail { color: var(--muted); font-size: 7.5px; line-height: 1.3; }
+
+  /* ── SIGNALS ── */
+  .signals-grid { display: flex; flex-direction: column; gap: 4px; }
+  .signal-row { display: flex; align-items: center; gap: 6px; padding: 4px 6px; background: #f8faf8; border: 1px solid var(--rule); border-radius: 4px; }
+  .signal-icon { width: 13px; height: 13px; border-radius: 50%; background: var(--canopy-light); border: 1.5px solid var(--canopy-mid); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .signal-icon svg { width: 7px; height: 7px; }
+  .signal-name { font-weight: 600; font-size: 8px; color: var(--ink); flex: 1; }
+  .signal-conf { font-size: 7px; text-transform: uppercase; letter-spacing: 1px; padding: 1px 5px; border-radius: 10px; background: var(--canopy-light); color: var(--canopy); border: 1px solid #a8ccb4; white-space: nowrap; }
+
+  /* ── TECH PILLS ── */
+  .tech-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 5px; }
+  .tech-pill { background: var(--ink); color: white; font-size: 7.5px; padding: 2px 7px; border-radius: 20px; font-weight: 500; }
+  .tech-pill.highlight-tech { background: var(--canopy); }
+  .tech-count { font-size: 7.5px; color: var(--muted); line-height: 1.35; }
+
+  /* ── ACTION PLAN ── */
+  .action-steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .action-step { position: relative; padding: 7px 9px; border: 1px solid var(--rule); border-radius: 4px; background: white; }
+  .action-step::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; border-radius: 4px 4px 0 0; }
+  .action-step:nth-child(1)::before { background: var(--canopy); }
+  .action-step:nth-child(2)::before { background: var(--canopy-bright); }
+  .action-step:nth-child(3)::before { background: var(--ink); }
+  .action-num { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; color: var(--rule); line-height: 1; margin-bottom: 2px; }
+  .action-title { font-family: 'Syne', sans-serif; font-size: 8.5px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+  .action-desc { font-size: 7.5px; color: var(--muted); line-height: 1.4; }
+
+  /* ── PROFILE ── */
+  .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px; }
+  .profile-row { display: flex; flex-direction: column; gap: 0; }
+  .profile-key { font-size: 7px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 600; }
+  .profile-val { font-size: 8.5px; font-weight: 500; color: var(--ink); }
+  .profile-val.green { color: var(--canopy); font-weight: 700; }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--rule);
+    padding: 5px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    flex-shrink: 0;
+    margin-top: auto;
+  }
+  .footer-left { font-size: 7px; color: var(--muted); line-height: 1.5; }
+  .footer-cta { font-family: 'Syne', sans-serif; font-size: 8.5px; font-weight: 700; color: var(--canopy); margin-bottom: 1px; }
+  .footer-contact { font-size: 7.5px; color: var(--muted); }
+
+  @media print {
+    html, body { width: 210mm; height: 297mm; overflow: hidden; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="header-left">
+    <div class="canopy-logo">
+      <img class="canopy-logo-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH8AAABOCAYAAAAJm8kbAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAACvUlEQVR4nO2c0W7DIAxFybT//+XsYarWISDYGNv03vPSaR3E68FOIDTXfd+FYPIVHQCJg/KBoXxgKB8YygeG8oGhfGC+owM4gN5CyOUaxQYof8xoBaz13lEDgmW/j2bp86jlUmb+fyzkvfeRuhIw8//YkbWpKwHl/7JTUtoBQPnAoJ/zvbLydZxU1wDImZ+2HHuBKj9KfKoBhyo/VfmNAlU+KZQPDbJ879J/BRxzCPpUTyMj5bRNA7r8d+or8ePlPoEuf/aW7UcOBORzvmTOfVevHwFi5msF3uW3Asy2T7/ZA03+auY+tZ95P80AQC771qxUhBAoP4YUAwBNfpqSmwG0c34pawMgRcZagSjfGs2ASFGBKF/PjPQUkntQvg2pJfeg/DWOlP4C7WrfkqPFl0L50FA+MJQv46pej4by5XyE+FIoH5qVqd5okeMpO2batvbK1btrdscwg+TJHbP7/1x2EV3Kx6/ONhp9ABLqASFtp4lhpW2vn1mpLvI1ZX/l5kaGGyMZYiilH4dbfNKyP7PD9a5+7mXtbGaNRr7k+NK+W8xuzRrFIGHrxeWOCz7rgK1KvfbvNH1Ifx/CygWfNCMlbXfcMVt5wJKXNNft4pzq9XkaLNoZweg05ArlxxP2nQBU+RYldUXWymnRjF3385/OXRH71y3K9K5jh5T/lczfFXD0PFzzNa6VPmrckkIqvw6s/ifv0s+aVttWey+sjq/tI3zaZ1H2JR9Yaxq3U/jMQpLFGr/VfQJXNGV/9gkT2oWO+n3Nh/cU40r8O/twHSgWizyaJdNW29YpYucDE55i8OojDO1dPVSsB2PooEGd55NC+ZGEl1zKz0HIdQLlA0P58YTNDvhdvTjCp4TMfGAoHxjKB4bygaF8YCgfGMqXMdqcchyc58s5XvoLZj4wlA8M5QND+cBQPjCUD8wP/Lt7vsCwz6cAAAAASUVORK5CYII=" alt="canopy logo" />
+    </div>
+    <div class="report-label">Cloud Intelligence Report</div>
+  </div>
+  <div class="header-right">
+    <div class="report-date">Generated: {{ report_date }}</div>
+    <span class="confidential-badge">Confidential</span>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="company-eyebrow">Company Overview</div>
+  <div class="company-name">{{ company_name }}</div>
+  <div class="company-meta">
+    <span>{{ domain }}</span>
+    <span class="dot"></span>
+    <span>{{ hq_city }}, {{ hq_country }}</span>
+    <span class="dot"></span>
+    <span>Founded {{ founded_year }}</span>
+    <span class="dot"></span>
+    <span>{{ industry_label }}</span>
+    <span class="dot"></span>
+    <span>{{ employee_count }} employees</span>
+  </div>
+</section>
+
+<!-- ── DESCRIPTION ── -->
+<div class="desc-strip">{{ description }}</div>
+
+<!-- ── MAIN CONTENT ── -->
+<div class="main">
+
+  <!-- Cloud Spend Estimates -->
+  <div class="card card-full">
+    <div class="card-header">
+      <span class="card-title">Estimated Cloud Spend</span>
+      <span class="card-badge badge-amber">Canopy Estimate · Based on our research and analysis</span>
+    </div>
+    <div class="card-body">
+      <div class="spend-grid">
+        <div class="spend-item highlight">
+          <div class="spend-label">Total Annual Cloud</div>
+          <div class="spend-value">{{ est_cloud_spend }}</div>
+          <div class="spend-sub">per year</div>
+        </div>
+        <div class="spend-item">
+          <div class="spend-label">GPU / AI Workloads</div>
+          <div class="spend-value">{{ est_gpu_spend }}</div>
+          <div class="spend-sub">included within cloud total</div>
+        </div>
+        <div class="spend-item">
+          <div class="spend-label">YoY Growth Rate</div>
+          <div class="spend-value">{{ est_cloud_growth }}</div>
+          <div class="spend-sub">projected cloud growth</div>
+        </div>
+      </div>
+      <div class="gpu-note">
+        ⓘ &nbsp;GPU spend of <strong>{{ est_gpu_spend }}</strong> is a component of (not additional to) the total {{ est_cloud_spend }} annual cloud estimate — representing ~{{ gpu_fraction_pct }} of cloud in {{ company_name }}'s stack.
+      </div>
+    </div>
+  </div>
+
+  <!-- Methodology Breakdown -->
+  <div class="card card-full">
+    <div class="card-header">
+      <span class="card-title">Our Estimation Approach</span>
+      <span class="card-badge badge-green">Transparent · Signal-Based Model</span>
+    </div>
+    <div class="card-body" style="padding:0;">
+      <table class="breakdown-table">
+        <thead>
+          <tr>
+            <th style="width:20px">#</th>
+            <th style="width:120px">Step</th>
+            <th style="width:80px">Value</th>
+            <th>Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for step in breakdown_steps %}
+          <tr>
+            <td><span class="step-num">{{ step.step }}</span></td>
+            <td>{{ step.name }}</td>
+            <td><span class="step-val">{{ step.value }}</span></td>
+            <td class="step-detail">{{ step.detail }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Optimization Opportunity -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Optimization Opportunity</span>
+      <span class="card-badge badge-green">Canopy Value Potential</span>
+    </div>
+    <div class="card-body">
+      <div class="opp-grid">
+        <div class="opp-item savings">
+          <div class="opp-label">Savings Potential</div>
+          <div class="opp-value">{{ savings_range }}</div>
+          <div class="opp-desc">{{ savings_rationale }}</div>
+        </div>
+        <div class="opp-item growth">
+          <div class="opp-label">Unmanaged Growth Risk</div>
+          <div class="opp-value">{{ projected_spend_increase }}</div>
+          <div class="opp-desc">{{ growth_risk }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Company Profile -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Company Profile</span>
+    </div>
+    <div class="card-body">
+      <div class="profile-grid">
+        <div class="profile-row">
+          <span class="profile-key">Annual Revenue</span>
+          <span class="profile-val">{{ revenue }}</span>
+        </div>
+        <div class="profile-row">
+          <span class="profile-key">Employees</span>
+          <span class="profile-val">{{ employee_count }}</span>
+        </div>
+        <div class="profile-row">
+          <span class="profile-key">IT Budget (reported)</span>
+          <span class="profile-val">{{ it_spend_zoominfo }}</span>
+        </div>
+        <div class="profile-row">
+          <span class="profile-key">Recent Funding</span>
+          <span class="profile-val green">{{ recent_funding }} · {{ funding_round_label }}</span>
+        </div>
+        <div class="profile-row">
+          <span class="profile-key">Funding Date</span>
+          <span class="profile-val">{{ funding_date }}</span>
+        </div>
+        <div class="profile-row">
+          <span class="profile-key">Industry</span>
+          <span class="profile-val">{{ industry }}</span>
+        </div>
+      </div>
+      <div style="margin-top:6px; border-top:1px solid var(--rule); padding-top:5px;">
+        <div style="font-size:7px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600;margin-bottom:4px;">Industry Categorization</div>
+        <div style="display:flex;align-items:center;gap:4px;margin-bottom:4px;flex-wrap:wrap;">
+          <span style="font-size:7.5px;color:var(--muted);">Raw tags (ZoomInfo):</span>
+          <span style="background:#edf3ef;border:1px solid var(--rule);font-size:7.5px;padding:1px 6px;border-radius:3px;color:var(--ink);">
+              {{ industry_raw_tags | replace("[","") | replace("]","") | replace("'", "") | replace(",", " +") }}
+          </span>
+          <span style="font-size:8px;color:var(--muted);">→</span>
+          <span style="background:var(--canopy);color:white;font-size:7.5px;padding:1px 7px;border-radius:3px;font-weight:600;">{{ industry }}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+          <div style="background:#f5f8f5;border:1px solid var(--rule);border-radius:3px;padding:4px 7px;font-size:7.5px;color:var(--muted);line-height:1.35;">
+            <span style="color:var(--canopy);font-weight:600;">IT Benchmark:</span> {{ base_it_pct_rationale }}
+          </div>
+          <div style="background:#f5f8f5;border:1px solid var(--rule);border-radius:3px;padding:4px 7px;font-size:7.5px;color:var(--muted);line-height:1.35;">
+            <span style="color:var(--canopy);font-weight:600;">Growth Premium:</span> {{ growth_factor_rationale }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Research / Signals -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Research</span>
+      <span class="card-badge badge-green">{{ high_confidence_count }} High-Confidence</span>
+    </div>
+    <div class="card-body">
+      <div class="signals-grid">
+        {% for signal, conf in signals_with_confidence %}
+        <div class="signal-row">
+          <div class="signal-icon">
+            <svg viewBox="0 0 10 10" fill="none">
+              <path d="M2 5l2 2 4-4" stroke="#1a6b3c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="signal-name">{{ signal }}</div>
+          <span class="signal-conf">{{ conf }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Cloud Tools/Software -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Cloud Tools/Software</span>
+      <span class="card-badge badge-amber">{{ tech_stack_builtwith }} BuiltWith techs · {{ tech_stack_normalized }} normalized</span>
+    </div>
+    <div class="card-body">
+      <div class="tech-pills">
+        {% for token in canonical_tokens %}
+        <span class="tech-pill highlight-tech">{{ token }}</span>
+        {% endfor %}
+      </div>
+      <div class="tech-count">{{ cloud_tools_summary }}</div>
+    </div>
+  </div>
+
+  <!-- Proposed Action Plan -->
+  <div class="card card-full">
+    <div class="card-header">
+      <span class="card-title">Canopy Proposed Action Plan</span>
+      <span class="card-badge badge-green">3-Phase Engagement</span>
+    </div>
+    <div class="card-body">
+      <div class="action-steps">
+        <div class="action-step">
+          <div class="action-num">01</div>
+          <div class="action-title">Cloud Spend Audit</div>
+          <div class="action-desc">{{ audit_pitch }}</div>
+        </div>
+        <div class="action-step">
+          <div class="action-num">02</div>
+          <div class="action-title">Optimization Blueprint</div>
+          <div class="action-desc">{{ optimization_pitch }}</div>
+        </div>
+        <div class="action-step">
+          <div class="action-num">03</div>
+          <div class="action-title">Managed Governance</div>
+          <div class="action-desc">{{ governance_pitch }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-left">
+    <strong>Canopy Cloud Intelligence Report — {{ company_name }}</strong><br>
+    This report is an estimate based on public signals, ZoomInfo data, and proprietary modeling. It is intended to initiate a conversation with relevant companies.<br>
+    Confidential. For internal Canopy use and prospect delivery only.
+  </div>
+  <div style="text-align:right;">
+    <div class="footer-cta">Ready to validate these numbers?</div>
+    <div class="footer-contact">canopycloud.com &nbsp;·&nbsp; hello@canopycloud.com</div>
+  </div>
+</footer>
+
+</body>
+</html>
